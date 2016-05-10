@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan(basePackages="com")
+@ComponentScan(basePackages="com.askhmer")
 @EnableWebMvc
 @PropertySource("classpath:application.properties")
 public class WebConfig extends WebMvcConfigurerAdapter{
@@ -46,7 +46,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resource/");
 	}
 	
-	@Bean
+	/*@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUrl(environment.getProperty("chatAskhmer.datasource.url"));
@@ -54,6 +54,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		dataSource.setUsername(environment.getProperty("chatAskhmer.datasource.username"));
 		dataSource.setPassword(environment.getProperty("chatAskhmer.datasource.password"));
 		return dataSource;
-	}
+	}*/
 	
 }
