@@ -46,7 +46,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resource/");
 	}
 	
-	/*@Bean
+	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUrl(environment.getProperty("chatAskhmer.datasource.url"));
@@ -54,6 +54,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		dataSource.setUsername(environment.getProperty("chatAskhmer.datasource.username"));
 		dataSource.setPassword(environment.getProperty("chatAskhmer.datasource.password"));
 		return dataSource;
-	}*/
+	}
 	
 }
