@@ -17,9 +17,12 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.mangofactory.swagger.plugin.EnableSwagger;
+
 @Configuration
 @ComponentScan(basePackages="com.askhmer")
 @EnableWebMvc
+@EnableSwagger
 @PropertySource("classpath:application.properties")
 public class WebConfig extends WebMvcConfigurerAdapter{
 	
