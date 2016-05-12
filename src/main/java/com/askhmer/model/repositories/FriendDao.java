@@ -1,8 +1,10 @@
 package com.askhmer.model.repositories;
 
+import java.sql.Array;
 import java.util.List;
 
 import com.askhmer.model.dto.FriendDto;
+import com.askhmer.model.dto.UserDto;
 
 /***
  * 
@@ -15,7 +17,24 @@ public interface FriendDao {
 	 * 
 	 * @return
 	 */
-	public List<FriendDto> listFriend();
+	public List<Integer> listFriendIdById(int user_id);
+	
+	
+	
+	/***
+	 * 
+	 * @param user_id
+	 * @return
+	 */
+	public List<UserDto> listFriendById(int user_id);
+	
+	
+	/***
+	 * 
+	 * @param id
+	 * @return 
+	 */
+	public UserDto viewfriendById(int user_id);
 	
 	/***
 	 * 
@@ -23,4 +42,8 @@ public interface FriendDao {
 	 * @return
 	 */
 	public boolean addFriend(FriendDto friendDto);
+
+
+
+	
 }

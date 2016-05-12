@@ -1,6 +1,9 @@
 package com.askhmer.services;
 
 import com.askhmer.model.dto.FriendDto;
+import com.askhmer.model.dto.UserDto;
+
+import java.util.List;
 
 /***
  * 
@@ -15,5 +18,26 @@ public interface FriendService {
 	 * @return
 	 */
 	public boolean addFriend(FriendDto friendDto);
+	
+	/***
+	 * 
+	 * @return list friend
+	 */
+    public List<Integer> listFriendIdById(int user_id);
+    
+    
+    /***
+     * 
+     * @param user_id
+     * @return
+     */
+    public List<UserDto> listFriendById(int user_id);
+	
+    /***
+     * 
+     * @param id
+     * @return friend by id
+     */
+	public UserDto viewfriendById(int user_id);
 
 }
