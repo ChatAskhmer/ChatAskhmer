@@ -67,10 +67,7 @@ public class FriendRest {
 //		map.put("DATA", lst);
 //		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 //	}
-	
-	 
-	
-	
+
 	
 	@RequestMapping(value="listfriendById/{user_id}", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> listFriendById(@PathVariable("user_id") int user_id){
