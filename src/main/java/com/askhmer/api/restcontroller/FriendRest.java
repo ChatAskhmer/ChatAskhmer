@@ -52,9 +52,6 @@ public class FriendRest {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 
-	
-	
-	
 //	@RequestMapping(value="/list", method = RequestMethod.GET)
 //	public ResponseEntity<Map<String, Object>> listFriend(){
 //		Map<String, Object> map = new HashMap<String, Object>();
