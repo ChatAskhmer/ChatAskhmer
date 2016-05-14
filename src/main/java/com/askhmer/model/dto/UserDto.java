@@ -1,5 +1,7 @@
 package com.askhmer.model.dto;
 
+import java.util.Date;
+
 import org.joda.time.DateTime;
 
 public class UserDto {
@@ -14,10 +16,9 @@ public class UserDto {
 	private String userHometown;
 	private String userCurrentCity;
 	private String userPhoneNum;
+	private String facebookId;
 	private String userAccessToken;
-	private DateTime userRigisDate;
-	private boolean status;
-	
+	private Date userRigisDate;
 	/**
 	 * @return the userId
 	 */
@@ -139,6 +140,18 @@ public class UserDto {
 		this.userPhoneNum = userPhoneNum;
 	}
 	/**
+	 * @return the facebookId
+	 */
+	public String getFacebookId() {
+		return facebookId;
+	}
+	/**
+	 * @param facebookId the facebookId to set
+	 */
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+	/**
 	 * @return the userAccessToken
 	 */
 	public String getUserAccessToken() {
@@ -153,26 +166,14 @@ public class UserDto {
 	/**
 	 * @return the userRigisDate
 	 */
-	public DateTime getUserRigisDate() {
+	public Date getUserRigisDate() {
 		return userRigisDate;
 	}
 	/**
 	 * @param userRigisDate the userRigisDate to set
 	 */
-	public void setUserRigisDate(DateTime userRigisDate) {
+	public void setUserRigisDate(Date userRigisDate) {
 		this.userRigisDate = userRigisDate;
-	}
-	/**
-	 * @return the status
-	 */
-	public boolean isStatus() {
-		return status;
-	}
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 	
 	/**
@@ -185,13 +186,14 @@ public class UserDto {
 	 * @param userHometown
 	 * @param userCurrentCity
 	 * @param userPhoneNum
+	 * @param facebookId
 	 * @param userAccessToken
 	 * @param userRigisDate
-	 * @param status
 	 */
 	public UserDto(String userName, String gender, String userNo, String userPhoto, String userEmail,
-			String userPassword, String userHometown, String userCurrentCity, String userPhoneNum,
-			String userAccessToken, DateTime userRigisDate, boolean status) {
+			String userPassword, String userHometown, String userCurrentCity, String userPhoneNum, String facebookId,
+			String userAccessToken, Date userRigisDate) {
+		super();
 		this.userName = userName;
 		this.gender = gender;
 		this.userNo = userNo;
@@ -201,15 +203,17 @@ public class UserDto {
 		this.userHometown = userHometown;
 		this.userCurrentCity = userCurrentCity;
 		this.userPhoneNum = userPhoneNum;
+		this.facebookId = facebookId;
 		this.userAccessToken = userAccessToken;
 		this.userRigisDate = userRigisDate;
-		this.status = status;
 	}
+	
 	/**
 	 * 
 	 */
 	public UserDto() {
-		
+		super();
 	}
+
 	
 }
