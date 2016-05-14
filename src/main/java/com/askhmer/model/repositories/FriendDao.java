@@ -42,8 +42,5 @@ public interface FriendDao {
 	 * @return
 	 */
 	public boolean addFriend(FriendDto friendDto);
-
-
-
 	
 }
