@@ -66,7 +66,6 @@ public class FriendDaoImpl implements FriendDao{
 	public List<Integer> listFriendIdById(int user_id) {
 			
 			List<Integer> friendId = new ArrayList<Integer>();
-			FriendDto dto = null;
 			ResultSet rs = null;
 			System.err.println("error");
 			try{
@@ -78,7 +77,6 @@ public class FriendDaoImpl implements FriendDao{
 				rs = ps.executeQuery();
 				
 				while (rs.next()) {
-
 					friendId.add(rs.getInt("user_id"));
 				}
 				return friendId;
