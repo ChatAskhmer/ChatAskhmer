@@ -1,0 +1,31 @@
+package com.askhmer.servicesImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.askhmer.model.dto.UserDto;
+import com.askhmer.model.repositories.UserDao;
+import com.askhmer.services.UserServices;
+
+/**
+ * 
+ * @author soklundy
+ *
+ */
+@Service
+public class UserServicesImpl implements UserServices{
+
+	@Autowired
+	private UserDao userDao;
+	
+	@Override
+	public int register(UserDto userDto) {
+		return userDao.register(userDto);
+	}
+
+	@Override
+	public int checkHasUser(String facebookIdOrPhone) {
+		return userDao.checkHasUser(facebookIdOrPhone);
+	}
+
+}
