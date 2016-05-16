@@ -51,22 +51,6 @@ public class FriendRest {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-
-//	@RequestMapping(value="/list", method = RequestMethod.GET)
-//	public ResponseEntity<Map<String, Object>> listFriend(){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		List<FriendDto> lst = friend.listfriend();
-//		if ( !lst.isEmpty() ) {
-//			map.put("STATUS", HttpStatus.FOUND.value());
-//			map.put("MESSAGE", "FRIEND LIST FOUND!" );
-//			map.put("DATA", lst);
-//			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-//		}
-//		map.put("STATUS", HttpStatus.NOT_FOUND.value());
-//		map.put("MESSAGE", "FRIEND LIST NOT FOUND!" );
-//		map.put("DATA", lst);
-//		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//	}
 	
 	@RequestMapping(value="listfriendById/{user_id}", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> listFriendById(@PathVariable("user_id") int user_id){
