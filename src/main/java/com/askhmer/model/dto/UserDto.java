@@ -2,8 +2,6 @@ package com.askhmer.model.dto;
 
 import java.util.Date;
 
-import org.joda.time.DateTime;
-
 public class UserDto {
 	
 	private int userId;

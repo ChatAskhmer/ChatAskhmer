@@ -1,6 +1,5 @@
 package com.askhmer.model.repositories;
 
-import java.sql.Array;
 import java.util.List;
 
 import com.askhmer.model.dto.FriendDto;
