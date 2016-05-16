@@ -23,43 +23,7 @@ public class FriendDaoImpl implements FriendDao {
 	private DataSource dataSource;
 	Connection cnn;
 
-	//
-	// public List<FriendDto> listFriend() {
-	//
-	// List<FriendDto> friend = new ArrayList<FriendDto>();
-	// FriendDto dto = null;
-	// ResultSet rs = null;
-	// System.err.println("error");
-	//
-	//
-	// try{
-	//
-	// String sql = "SELECT * FROM tbl_friend";
-	// cnn = dataSource.getConnection();
-	// PreparedStatement ps = cnn.prepareStatement(sql);
-	// rs = ps.executeQuery();
-	//
-	// while (rs.next()) {
-	// dto = new FriendDto();
-	// dto.setId(rs.getInt("id"));
-	// dto.setFriendId(rs.getInt("friend_id"));
-	// dto.setUserId(rs.getInt("user_id"));
-	// dto.setFriend(rs.getBoolean("is_friend"));
-	// friend.add(dto);
-	// }
-	// return friend;
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// } finally {
-	// try {
-	// cnn.close();
-	// } catch (SQLException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-	// return null;
-	// }
+
 
 	public List<Integer> listFriendIdById(int user_id) {
 
