@@ -52,6 +52,23 @@ public class FriendRest {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/unfriend", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String,Object>> unFriend(@RequestBody FriendDto friendDto){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		try {
+			if(friend.unFriend(friendDto)==true){
+				map.put("MESSAGE","UNFRIEND HAS BEEN REQUESTED.");
+				map.put("STATUS", HttpStatus.OK.value());
+			}else{
+				map.put("MESSAGE","UNFRIEND HAS BEEN FAILS.");
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="listfriendById/{user_id}", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> listFriendById(@PathVariable("user_id") int user_id){
 		Map<String, Object> map = new HashMap<String, Object>();

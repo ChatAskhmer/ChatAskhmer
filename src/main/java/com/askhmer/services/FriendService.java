@@ -39,5 +39,12 @@ public interface FriendService {
      * @return friend by id
      */
 	public UserDto viewfriendById(int user_id);
+	
+	/**
+	 * 
+	 * @param friendDto
+	 * @return
+	 */
+	public boolean unFriend(FriendDto friendDto);
 
 }

@@ -38,4 +38,9 @@ public class FriendServiceImpl implements FriendService {
 		return friendDao.listFriendById(user_id);
 	}
 
+	@Override
+	public boolean unFriend(FriendDto friendDto) {
+		return friendDao.unFriend(friendDto);
+	}
+
 }
