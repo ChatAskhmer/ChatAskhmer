@@ -27,4 +27,11 @@ public interface MessageDao {
 	 * @return boolean
 	 */
 	public boolean deleteMessage(MessageDto messageDto);
+	
+	/***
+	 * 
+	 * @param room_id
+	 * @return list
+	 */
+	public List<MessageDto> listMessageByRoomId(int room_id);
 }

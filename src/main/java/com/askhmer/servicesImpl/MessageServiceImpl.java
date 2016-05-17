@@ -29,4 +29,10 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.addMessage(messageDto);
 	}
 
+	@Override
+	public List<MessageDto> listMessageByRoomId(int room_id) {
+		// TODO Auto-generated method stub
+		return messageDao.listMessageByRoomId(room_id);
+	}
+
 }

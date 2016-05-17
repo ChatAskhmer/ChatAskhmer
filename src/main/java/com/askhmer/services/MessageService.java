@@ -21,4 +21,11 @@ public interface MessageService {
 	 * @return boolean
 	 */
 	public boolean addMessage(MessageDto messageDto);
+	
+	/***
+	 * 
+	 * @param room_id
+	 * @return List
+	 */
+	public List<MessageDto> listMessageByRoomId(int room_id);
 }

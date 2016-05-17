@@ -11,6 +11,10 @@ public class MessageDto {
 	private String stickerUrl;
 	private Date msgDate;
 	private Time msgTime;
+	
+	private String userName;
+	private String userProfile;
+	
 	public int getMsgId() {
 		return msgId;
 	}
@@ -52,6 +56,18 @@ public class MessageDto {
 	}
 	public void setMsgTime(Time msgTime) {
 		this.msgTime = msgTime;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserProfile() {
+		return userProfile;
+	}
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
 	}
 	
 	
