@@ -26,7 +26,7 @@ public interface MessageDao {
 	 * 
 	 * @return boolean
 	 */
-	public boolean deleteMessage(MessageDto messageDto);
+	public boolean deleteMessage(int user_id, int msg_id);
 	
 	/***
 	 * 

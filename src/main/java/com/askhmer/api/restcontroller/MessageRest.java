@@ -31,7 +31,7 @@ public class MessageRest {
 	private MessageService messageSvervice;
 
 	
-	@RequestMapping(value="/add", method= RequestMethod.POST, headers="Accept=application/json")
+	@RequestMapping(value="/add_message", method= RequestMethod.POST, headers="Accept=application/json")
 	public ResponseEntity<Map<String, Object>> addMessage(@RequestBody MessageDto messageDto){
 		Map<String, Object> map  = new HashMap<String, Object>();
 		try {
@@ -40,6 +40,23 @@ public class MessageRest {
 				map.put("STATUS", HttpStatus.OK.value());
 			}else{
 				map.put("MESSAGE","ADD MESSAGE HAS BEEN FAILS.");
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/delete_message/{user_id}/{msg_id}", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String, Object>> deleteMessage(@PathVariable("user_id") int user_id, @PathVariable("msg_id") int msg_id){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		try {
+			if(messageSvervice.deleteMessage(user_id, msg_id)==true){
+				map.put("MESSAGE","DELETE MESSAGE HAS BEEN REQUESTED.");
+				map.put("STATUS", HttpStatus.OK.value());
+			}else{
+				map.put("MESSAGE","DELETE MESSAGE HAS BEEN FAILS.");
 				map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			}
 		} catch (Exception e) {

@@ -17,11 +17,6 @@ public class MessageServiceImpl implements MessageService{
 	@Autowired
 	private MessageDao messageDao;
 	
-	@Override
-	public List<MessageDto> listMessage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean addMessage(MessageDto messageDto) {
@@ -33,6 +28,12 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageDto> listMessageByRoomId(int room_id, int user_id) {
 		// TODO Auto-generated method stub
 		return messageDao.listMessageByRoomId(room_id, user_id);
+	}
+
+	@Override
+	public boolean deleteMessage(int user_id, int msg_id) {
+		// TODO Auto-generated method stub
+		return messageDao.deleteMessage(user_id, msg_id);
 	}
 
 }

@@ -31,10 +31,10 @@ public class MessageDaoImpl implements MessageDao{
 
 	@Override
 	public boolean addMessage(MessageDto messageDto) {
-		final String SQLADDFRIEND = "INSERT INTO tbl_chat_msg(room_id, user_id, message) VALUES(?,?,?)"; 
+		final String SQL = "INSERT INTO tbl_chat_msg(room_id, user_id, message) VALUES(?,?,?)"; 
 		try {
 			cnn = dataSource.getConnection(); 
-			PreparedStatement ps = cnn.prepareStatement(SQLADDFRIEND);
+			PreparedStatement ps = cnn.prepareStatement(SQL);
 			ps.setInt(1, messageDto.getRoomId());
 			ps.setInt(2, messageDto.getUserId());
 			ps.setString(3, messageDto.getMessage());
@@ -49,8 +49,20 @@ public class MessageDaoImpl implements MessageDao{
 	}
 
 	@Override
-	public boolean deleteMessage(MessageDto messageDto) {
-		// TODO Auto-generated method stub
+	public boolean deleteMessage(int user_id, int msg_id) {
+		final String SQL = "INSERT INTO tbl_del_chat_msg(user_id, msg_id) VALUES(?,?)"; 
+		try {
+			cnn = dataSource.getConnection(); 
+			PreparedStatement ps = cnn.prepareStatement(SQL);
+			ps.setInt(1, user_id);
+			ps.setInt(2, msg_id);
+			
+			if (ps.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

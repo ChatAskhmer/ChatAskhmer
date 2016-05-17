@@ -14,7 +14,7 @@ public interface MessageService {
 	/***
 	 * @return List
 	 */
-	public List<MessageDto> listMessage();
+	public boolean deleteMessage(int user_id, int msg_id);
 	
 	/***
 	 * @param MessageDto
