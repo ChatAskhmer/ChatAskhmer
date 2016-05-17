@@ -58,5 +58,24 @@ public class ChatHistoryDaoimpl implements ChatHistoryDao {
 		return null;
 	}
 
+	
+	@Override
+	public int checkChatRoom(int user_id,int id) {
+		final String SQLCHECKUSER = "select room_id from tbl_chat_member where room_id in (select room_id from tbl_chat_member where user_id = ?) and user_id = ?"; 
+		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLCHECKUSER);) {
+			ps.setInt(1, user_id);
+			ps.setInt(2, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("room_id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	
 
 }

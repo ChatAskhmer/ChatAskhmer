@@ -22,5 +22,10 @@ public class ChatHistoryServiceImpl implements ChatHistoryService{
 		// TODO Auto-generated method stub
 		return chatHistoryDao.listChatRoom();
 	}
+	
+	@Override
+	public int checkChatRoom(int user_id,int id) {
+		return chatHistoryDao.checkChatRoom(user_id, id);
+	}
 
 }

@@ -7,6 +7,18 @@ import com.askhmer.model.dto.UserDto;
 
 public interface ChatHistoryDao {
 	
+
+	/***
+	 * 
+	 * @return listchatroom
+	 */
 	public List<ChatHistoryDto> listChatRoom();
+	
+	/***
+	 * 
+	 * @param user_id
+	 * @return room_id
+	 */
+	public int checkChatRoom(int user_id,int id);
 
 }
