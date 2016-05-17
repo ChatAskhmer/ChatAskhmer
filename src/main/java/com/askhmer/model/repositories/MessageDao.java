@@ -33,5 +33,5 @@ public interface MessageDao {
 	 * @param room_id
 	 * @return list
 	 */
-	public List<MessageDto> listMessageByRoomId(int room_id);
+	public List<MessageDto> listMessageByRoomId(int room_id, int user_id);
 }

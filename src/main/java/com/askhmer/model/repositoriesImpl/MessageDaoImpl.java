@@ -55,7 +55,7 @@ public class MessageDaoImpl implements MessageDao{
 	}
 
 	@Override
-	public List<MessageDto> listMessageByRoomId(int room_id) {
+	public List<MessageDto> listMessageByRoomId(int room_id, int user_id) {
 		List<MessageDto> msg = new ArrayList<MessageDto>();
 		ResultSet rs = null;
 		MessageDto dto = null;
@@ -63,11 +63,15 @@ public class MessageDaoImpl implements MessageDao{
 		String sql = "SELECT m.msg_id, m.message, m.msg_date, m.msg_time, u.user_id, u.user_name, u.user_photo "
 					+"FROM tbl_chat_msg m "
 					+"INNER JOIN tbl_user u ON u.user_id = m.user_id "
-					+"WHERE m.room_id = ?";
+					+"WHERE m.room_id = ? "
+					+"AND m.msg_id NOT IN(SELECT msg_id "
+					+"FROM tbl_del_chat_msg "
+					+"WHERE user_id = ?)";
 		try {
 			cnn = dataSource.getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setInt(1, room_id);
+			ps.setInt(2, user_id);
 			
 			rs = ps.executeQuery();
 			

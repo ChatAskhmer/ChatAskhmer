@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.askhmer.model.dto.MessageDto;
-import com.askhmer.model.repositories.MessageDao;
 import com.askhmer.services.MessageService;
 
 /***
@@ -30,9 +29,7 @@ public class MessageRest {
 	
 	@Autowired
 	private MessageService messageSvervice;
-	
-	@Autowired
-	private MessageDao messagedao;
+
 	
 	@RequestMapping(value="/add", method= RequestMethod.POST, headers="Accept=application/json")
 	public ResponseEntity<Map<String, Object>> addMessage(@RequestBody MessageDto messageDto){
@@ -51,9 +48,9 @@ public class MessageRest {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/list_message_by_roomId/{room_id}", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> listMessageByRoomId(@PathVariable("room_id") int room_id){
-		List<MessageDto> liMsg = messagedao.listMessageByRoomId(room_id);
+	@RequestMapping(value="/list_message_by_roomId/{room_id}/{user_id}", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> listMessageByRoomId(@PathVariable("room_id") int room_id, @PathVariable("user_id") int user_id){
+		List<MessageDto> liMsg = messageSvervice.listMessageByRoomId(room_id, user_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		if ( !liMsg.isEmpty() ) {
 			map.put("STATUS", HttpStatus.FOUND.value());
