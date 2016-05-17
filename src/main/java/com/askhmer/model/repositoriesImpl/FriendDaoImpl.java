@@ -22,9 +22,7 @@ public class FriendDaoImpl implements FriendDao {
 	@Autowired
 	private DataSource dataSource;
 	Connection cnn;
-
-
-
+	
 	public List<Integer> listFriendIdById(int user_id) {
 
 		List<Integer> friendId = new ArrayList<Integer>();
@@ -138,4 +136,25 @@ public class FriendDaoImpl implements FriendDao {
 		return null;
 	}
 
+	@Override
+	public boolean unFriend(FriendDto friendDto) {
+		final String SQLUNFRIEND = "UPDATE tbl_friend SET un_friend = true WHERE "
+				+ "((user_id = ? and friend_id = ?) or (user_id= ? and friend_id = ?))"
+				+ " and "
+				+ "un_friend = false";
+		
+		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLUNFRIEND);) {
+			ps.setInt(1, friendDto.getUserId());
+			ps.setInt(2, friendDto.getFriendId());
+			ps.setInt(3, friendDto.getFriendId());
+			ps.setInt(4, friendDto.getUserId());
+			if (ps.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
 }

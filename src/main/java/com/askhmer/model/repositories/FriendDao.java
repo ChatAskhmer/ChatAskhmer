@@ -42,4 +42,10 @@ public interface FriendDao {
 	 */
 	public boolean addFriend(FriendDto friendDto);
 	
+	/**
+	 * 
+	 * @param friendDto
+	 * @return
+	 */
+	public boolean unFriend(FriendDto friendDto);
 }
