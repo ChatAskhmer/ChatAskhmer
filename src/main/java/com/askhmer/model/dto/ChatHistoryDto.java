@@ -4,8 +4,38 @@ public class ChatHistoryDto {
 	
 	
 	private int userId;
+	private String userName;
+	private String userPhoto;
 	private int roomId;
 	private String roomName;
+	
+	
+	
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	/**
+	 * @return the userPhoto
+	 */
+	public String getUserPhoto() {
+		return userPhoto;
+	}
+	/**
+	 * @param userPhoto the userPhoto to set
+	 */
+	public void setUserPhoto(String userPhoto) {
+		this.userPhoto = userPhoto;
+	}
+	
 	
 	
 	
@@ -48,12 +78,16 @@ public class ChatHistoryDto {
 	}
 	/**
 	 * @param userId
+	 * @param userName
+	 * @param userPhoto
 	 * @param roomId
 	 * @param roomName
 	 */
-	public ChatHistoryDto(int userId, int roomId, String roomName) {
+	public ChatHistoryDto(int userId, String userName, String userPhoto, int roomId, String roomName) {
 		super();
 		this.userId = userId;
+		this.userName = userName;
+		this.userPhoto = userPhoto;
 		this.roomId = roomId;
 		this.roomName = roomName;
 	}
@@ -63,6 +97,7 @@ public class ChatHistoryDto {
 	public ChatHistoryDto() {
 		super();
 	}
+	
 	
 	
 	

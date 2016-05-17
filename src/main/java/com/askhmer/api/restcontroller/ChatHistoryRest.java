@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.askhmer.model.dto.ChatHistoryDto;
+import com.askhmer.model.dto.UserDto;
 import com.askhmer.model.repositories.ChatHistoryDao;
 import com.askhmer.servicesImpl.ChatHistoryServiceImpl;
 
@@ -24,16 +25,12 @@ public class ChatHistoryRest {
 	
 	@Autowired
 	private ChatHistoryServiceImpl chatHistoryServiceImpl;
-	
-	
-	@Autowired
-	private ChatHistoryDao chatHistoryDao;
-	
-	
-	@RequestMapping(value="/listchatroom", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> listchatroom(){
+
+
+	@RequestMapping(value="listchatroom/{user_id}", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> listchatroom(@PathVariable("user_id") int user_id){
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<ChatHistoryDto> lst = chatHistoryServiceImpl.listChatRoom();
+		List<ChatHistoryDto> lst = chatHistoryServiceImpl.listChatRoom(user_id);
 		if ( !lst.isEmpty() ) {
 			map.put("STATUS", HttpStatus.FOUND.value());
 			map.put("MESSAGE", "CHAT ROOM LIST FOUND!" );

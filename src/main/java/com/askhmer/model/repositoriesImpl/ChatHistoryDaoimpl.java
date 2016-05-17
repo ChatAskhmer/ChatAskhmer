@@ -24,22 +24,31 @@ public class ChatHistoryDaoimpl implements ChatHistoryDao {
 	private DataSource dataSource;
 	Connection cnn;
 	
-	
 
 	@Override
-	public List<ChatHistoryDto> listChatRoom() {
+	public List<ChatHistoryDto> listChatRoom(int user_id) {
+
 		List<ChatHistoryDto> friend = new ArrayList<ChatHistoryDto>();
 		ChatHistoryDto dto = null;
 		ResultSet rs = null;
 		System.err.println("error");
-		try{
-			String sql = "SELECT DISTINCT r.room_id,r.room_name FROM tbl_user u INNER JOIN tbl_chat_member m ON m.user_id = u.user_id INNER JOIN tbl_chat_room r ON r.room_id = m.room_id ";
+		try {
+			String sql ="select u.user_id,u.user_name,u.user_photo,r.room_id,r.room_name "
+					+"from tbl_user u INNER JOIN tbl_chat_member m "
+					+"on u.user_id = m.user_id "
+					+"INNER JOIN tbl_chat_room r on m.room_id = r.room_id "
+					+"where m.room_id in (select room_id from tbl_chat_member where user_id = ?) and (u.user_id != ?)";
 			cnn = dataSource.getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
+			ps.setInt(1, user_id);
+			ps.setInt(2, user_id);
 			rs = ps.executeQuery();
-			
+
 			while (rs.next()) {
 				dto = new ChatHistoryDto();
+				dto.setUserId(rs.getInt("user_id"));
+				dto.setUserName(rs.getString("user_name"));
+				dto.setUserPhoto(rs.getString("user_photo"));
 				dto.setRoomId(rs.getInt("room_id"));
 				dto.setRoomName(rs.getString("room_name"));
 				friend.add(dto);
@@ -57,6 +66,8 @@ public class ChatHistoryDaoimpl implements ChatHistoryDao {
 		}
 		return null;
 	}
+	
+	
 
 	
 	@Override

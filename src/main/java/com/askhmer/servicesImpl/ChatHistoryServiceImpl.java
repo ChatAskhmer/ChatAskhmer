@@ -16,16 +16,21 @@ public class ChatHistoryServiceImpl implements ChatHistoryService{
 	
 	@Autowired
 	private ChatHistoryDao chatHistoryDao;
-
+	
+	/***
+	 * 
+	 */
 	@Override
-	public List<ChatHistoryDto> listChatRoom() {
+	public List<ChatHistoryDto> listChatRoom(int user_id) {
 		// TODO Auto-generated method stub
-		return chatHistoryDao.listChatRoom();
+		return chatHistoryDao.listChatRoom(user_id);
 	}
+
 	
 	@Override
 	public int checkChatRoom(int user_id,int id) {
 		return chatHistoryDao.checkChatRoom(user_id, id);
 	}
+
 
 }

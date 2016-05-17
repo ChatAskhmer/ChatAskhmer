@@ -12,7 +12,7 @@ public interface ChatHistoryDao {
 	 * 
 	 * @return listchatroom
 	 */
-	public List<ChatHistoryDto> listChatRoom();
+	public List<ChatHistoryDto> listChatRoom(int user_id);
 	
 	/***
 	 * 

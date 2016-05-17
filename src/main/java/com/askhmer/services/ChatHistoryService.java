@@ -11,7 +11,7 @@ public interface ChatHistoryService {
 	 * 
 	 * @return
 	 */
-	 public List<ChatHistoryDto> listChatRoom();
+	 public List<ChatHistoryDto> listChatRoom(int user_id);
 	 
 	 /***
 	  * 
