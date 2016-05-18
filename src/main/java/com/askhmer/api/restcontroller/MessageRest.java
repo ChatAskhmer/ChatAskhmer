@@ -81,4 +81,24 @@ public class MessageRest {
 		
 		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/checkhistorychat/{appUserId}/{chatToId}", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> checkHistoryChat(@PathVariable("appUserId") int appUserId, @PathVariable("chatToId") int chatToId){
+		List<MessageDto> liMsg = messageSvervice.checkHistoryChat(appUserId, chatToId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if ( !liMsg.isEmpty() ) {
+				map.put("STATUS", HttpStatus.FOUND.value());
+				map.put("MESSAGE", "Message LIST FOUND!" );
+				map.put("DATA", liMsg);
+			}else {
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+				map.put("MESSAGE", "Message LIST NOT FOUND!" );
+				map.put("DATA", liMsg);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+	}
 }

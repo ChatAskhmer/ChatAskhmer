@@ -28,4 +28,10 @@ public interface MessageService {
 	 * @return List
 	 */
 	public List<MessageDto> listMessageByRoomId(int room_id, int user_id);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<MessageDto> checkHistoryChat(int appUserId, int chatToId);
 }
