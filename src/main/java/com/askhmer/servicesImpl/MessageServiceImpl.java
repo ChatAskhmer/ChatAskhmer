@@ -46,7 +46,7 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public boolean deleteMessage(int user_id, int msg_id) {
 		// TODO Auto-generated method stub
-		return false;
+		return messageDao.deleteMessage(user_id, msg_id);
 	}
 
 }
