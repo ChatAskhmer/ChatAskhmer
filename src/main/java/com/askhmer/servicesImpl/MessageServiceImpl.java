@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.askhmer.model.dto.MessageDto;
 import com.askhmer.model.repositories.ChatHistoryDao;
+import com.askhmer.model.repositories.ChatMemberDao;
+import com.askhmer.model.repositories.ChatRoomDao;
 import com.askhmer.model.repositories.MessageDao;
 import com.askhmer.services.MessageService;
 
@@ -21,6 +23,12 @@ public class MessageServiceImpl implements MessageService{
 	
 	@Autowired
 	private ChatHistoryDao chatHistoryDao;
+	
+	@Autowired
+	private ChatMemberDao chatMemberDao;
+	
+	@Autowired
+	private ChatRoomDao chatRoomDao;
 	
 	@Override
 	public boolean addMessage(MessageDto messageDto) {
@@ -49,4 +57,17 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.deleteMessage(user_id, msg_id);
 	}
 
+	@Override
+	public boolean addFirstMsgPersonalChat(int userId, int chatToUserId, String message) {
+		int[] userIdArr = {userId,chatToUserId};
+	
+		int returnRoomId = chatRoomDao.addChatRoom("", "personal chat");
+		
+		if(returnRoomId > 0) {
+			for (int i : userIdArr) {
+				chatMemberDao.addChatMember(returnRoomId, i);
+			}
+		}
+		return messageDao.addMessage(new MessageDto(returnRoomId, userId, message));
+	}
 }

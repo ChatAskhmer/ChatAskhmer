@@ -31,6 +31,23 @@ public class MessageRest {
 	private MessageService messageSvervice;
 
 	
+	@RequestMapping(value="/addfirstmsgpersonalchat/{userId}/{chatToUserId}/{message}", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String, Object>> addMessage(@PathVariable("userId") int userId, @PathVariable("chatToUserId") int chatToUserId,@PathVariable("message")String message){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		try {
+			if(messageSvervice.addFirstMsgPersonalChat(userId, chatToUserId, message)==true){
+				map.put("MESSAGE","ADD MESSAGE HAS BEEN REQUESTED.");
+				map.put("STATUS", HttpStatus.OK.value());
+			}else{
+				map.put("MESSAGE","ADD MESSAGE HAS BEEN FAILS.");
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/add_message", method= RequestMethod.POST, headers="Accept=application/json")
 	public ResponseEntity<Map<String, Object>> addMessage(@RequestBody MessageDto messageDto){
 		Map<String, Object> map  = new HashMap<String, Object>();

@@ -34,4 +34,13 @@ public interface MessageService {
 	 * @return
 	 */
 	public List<MessageDto> checkHistoryChat(int appUserId, int chatToId);
+	
+	/**
+	 * method use when chat personal first time 
+	 * @param userId
+	 * @param chatToUserId
+	 * @param message
+	 * @return
+	 */
+	public boolean addFirstMsgPersonalChat(int userId, int chatToUserId, String message);
 }

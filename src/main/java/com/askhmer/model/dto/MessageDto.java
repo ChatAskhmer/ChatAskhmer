@@ -70,7 +70,22 @@ public class MessageDto {
 		this.userProfile = userProfile;
 	}
 	
+	/**
+	 * @param roomId
+	 * @param userId
+	 * @param message
+	 */
+	public MessageDto(int roomId, int userId, String message) {
+		super();
+		this.roomId = roomId;
+		this.userId = userId;
+		this.message = message;
+	}
 	
-	
-
+	/**
+	 * 
+	 */
+	public MessageDto() {
+		
+	}
 }
