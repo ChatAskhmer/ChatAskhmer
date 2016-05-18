@@ -37,11 +37,13 @@ public class ChatHistoryDaoimpl implements ChatHistoryDao {
 					+"from tbl_user u INNER JOIN tbl_chat_member m "
 					+"on u.user_id = m.user_id "
 					+"INNER JOIN tbl_chat_room r on m.room_id = r.room_id "
-					+"where m.room_id in (select room_id from tbl_chat_member where user_id = ?) and (u.user_id != ?)";
+					+"where r.room_id not in (select room_id from tbl_del_chat_msg where user_id = ?) and "
+                    +"m.room_id in (select room_id from tbl_chat_member where user_id = ?) and (u.user_id != ?)";
 			cnn = dataSource.getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setInt(1, user_id);
 			ps.setInt(2, user_id);
+			ps.setInt(3, user_id);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
