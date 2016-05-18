@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.askhmer.model.dto.ChatHistoryDto;
+import com.askhmer.model.dto.DelChatMsgDto;
+import com.askhmer.model.dto.FriendDto;
 import com.askhmer.model.dto.UserDto;
 import com.askhmer.model.repositories.ChatHistoryDao;
 import com.askhmer.servicesImpl.ChatHistoryServiceImpl;
@@ -57,6 +60,25 @@ public class ChatHistoryRest {
 			}else{
 				map.put("MESSAGE_ROOM_ID",result);
 				map.put("MESSAGE","CHAT ROOM NOT FOUND.");
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
+	
+
+	@RequestMapping(value="/adddelchatmsg", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String,Object>> addDelChatMsg(@RequestBody DelChatMsgDto delChatMsgDto){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		try {
+			if(chatHistoryServiceImpl.addDelChatMsg(delChatMsgDto)==true){
+				map.put("MESSAGE","ADD DELETE MESSAGE HAS BEEN REQUESTED.");
+				map.put("STATUS", HttpStatus.OK.value());
+			}else{
+				map.put("MESSAGE","ADD DELETE MESSAGE HAS BEEN FAILS.");
 				map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			}
 		} catch (Exception e) {

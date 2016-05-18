@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.askhmer.model.dto.ChatHistoryDto;
+import com.askhmer.model.dto.DelChatMsgDto;
 import com.askhmer.model.repositories.ChatHistoryDao;
 import com.askhmer.services.ChatHistoryService;
 
@@ -30,6 +31,13 @@ public class ChatHistoryServiceImpl implements ChatHistoryService{
 	@Override
 	public int checkChatRoom(int user_id,int id) {
 		return chatHistoryDao.checkChatRoom(user_id, id);
+	}
+
+
+	@Override
+	public boolean addDelChatMsg(DelChatMsgDto delChatMsgDto) {
+		
+		return chatHistoryDao.addDelChatMsg(delChatMsgDto);
 	}
 
 

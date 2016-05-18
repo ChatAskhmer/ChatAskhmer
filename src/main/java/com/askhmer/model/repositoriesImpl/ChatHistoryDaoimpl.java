@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.askhmer.model.dto.ChatHistoryDto;
+import com.askhmer.model.dto.DelChatMsgDto;
 import com.askhmer.model.repositories.ChatHistoryDao;
 
 @Repository
@@ -88,7 +89,24 @@ public class ChatHistoryDaoimpl implements ChatHistoryDao {
 
 		return 0;
 	}
-	
-	
 
+
+
+
+	@Override
+	public boolean addDelChatMsg(DelChatMsgDto delChatMsgDto) {
+		final String SQLADDFRIEND = "INSERT INTO tbl_del_chat_msg(user_id,room_id) values(?,?)";
+		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLADDFRIEND);) {
+			ps.setInt(1, delChatMsgDto.getUserId());
+			ps.setInt(2, delChatMsgDto.getRoomId());
+			if (ps.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+	
 }
