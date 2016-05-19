@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.askhmer.model.dto.MessageDto;
-import com.askhmer.model.dto.UserDto;
 import com.askhmer.model.repositories.ChatHistoryDao;
 import com.askhmer.model.repositories.ChatMemberDao;
 import com.askhmer.model.repositories.ChatRoomDao;

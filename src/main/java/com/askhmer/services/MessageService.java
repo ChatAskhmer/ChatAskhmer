@@ -3,7 +3,6 @@ package com.askhmer.services;
 import java.util.List;
 
 import com.askhmer.model.dto.MessageDto;
-import com.askhmer.model.dto.UserDto;
 
 /***
  * 
