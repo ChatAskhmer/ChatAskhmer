@@ -124,8 +124,14 @@
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 		</dependency>
+		
+		<!-- http://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.6.2</version>
+		</dependency>
 				
-    
   </dependencies>
   <build>
     <finalName>ChatAskhmer</finalName>
