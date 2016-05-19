@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.askhmer.model.dto.MessageDto;
+import com.askhmer.model.dto.UserDto;
 import com.askhmer.model.repositories.ChatHistoryDao;
 import com.askhmer.model.repositories.ChatMemberDao;
 import com.askhmer.model.repositories.ChatRoomDao;
@@ -69,5 +70,23 @@ public class MessageServiceImpl implements MessageService{
 			}
 		}
 		return messageDao.addMessage(new MessageDto(returnRoomId, userId, message));
+	}
+
+	@Override
+	public int createGroupChat(String roomName, List<Integer> userId) {
+		int returnRoomId = chatRoomDao.addChatRoom(roomName, "group chat");
+		boolean status = false; 
+		
+		if(returnRoomId > 0) {
+			for (Integer userDto : userId) {
+				chatMemberDao.addChatMember(returnRoomId, userDto);
+			}
+			status = true;
+		}
+		
+		if (status) {
+			return returnRoomId;
+		}
+		return 0;
 	}
 }

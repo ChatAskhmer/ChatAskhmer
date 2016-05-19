@@ -3,6 +3,7 @@ package com.askhmer.services;
 import java.util.List;
 
 import com.askhmer.model.dto.MessageDto;
+import com.askhmer.model.dto.UserDto;
 
 /***
  * 
@@ -43,4 +44,12 @@ public interface MessageService {
 	 * @return
 	 */
 	public boolean addFirstMsgPersonalChat(int userId, int chatToUserId, String message);
+	
+	/**
+	 * 
+	 * @param roomName
+	 * @param userId
+	 * @return
+	 */
+	public int createGroupChat(String roomName, List<Integer> userId);
 }

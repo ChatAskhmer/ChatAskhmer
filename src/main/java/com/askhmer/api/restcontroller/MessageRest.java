@@ -1,5 +1,6 @@
 package com.askhmer.api.restcontroller;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.askhmer.model.dto.MessageDto;
 import com.askhmer.services.MessageService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /***
  * 
@@ -40,6 +44,30 @@ public class MessageRest {
 				map.put("STATUS", HttpStatus.OK.value());
 			}else{
 				map.put("MESSAGE","ADD MESSAGE HAS BEEN FAILS.");
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/creategroupchat", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String, Object>> createGroup(@RequestParam String roomName, @RequestParam String userId){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		
+		Gson gsonReceiver = new Gson();
+		Type type = new TypeToken<List<Integer>>(){}.getType();
+		List<Integer> obj = gsonReceiver.fromJson(userId,type);
+		
+		int roomId = messageSvervice.createGroupChat(roomName, obj);
+		try {
+			if(roomId > 0){
+				map.put("MESSAGE","CREATE GROUP HAS BEEN REQUESTED.");
+				map.put("STATUS", HttpStatus.OK.value());
+				map.put("DATA", roomId);
+			}else{
+				map.put("MESSAGE","CREATE GROUP HAS BEEN FAILS.");
 				map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			}
 		} catch (Exception e) {
