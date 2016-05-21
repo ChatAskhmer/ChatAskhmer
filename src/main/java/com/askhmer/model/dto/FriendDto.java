@@ -6,7 +6,10 @@ public class FriendDto {
 	private int friendId;
 	private int userId;
 	private boolean isFriend;
+	private String userPhoto;
 	
+	
+
 	/**
 	 * @return the id
 	 */
@@ -63,23 +66,45 @@ public class FriendDto {
 		this.isFriend = isFriend;
 	}
 	
-	/***
-	 * 
+	/**
+	 * @return the userPhoto
+	 */
+	public String getUserPhoto() {
+		return userPhoto;
+	}
+
+	/**
+	 * @param userPhoto the userPhoto to set
+	 */
+	public void setUserPhoto(String userPhoto) {
+		this.userPhoto = userPhoto;
+	}
+
+	/**
+	 * @param id
 	 * @param friendId
 	 * @param userId
 	 * @param isFriend
+	 * @param userPhoto
 	 */
-	public FriendDto(int friendId, int userId, boolean isFriend) {
+	public FriendDto(int id, int friendId, int userId, boolean isFriend, String userPhoto) {
+		super();
+		this.id = id;
 		this.friendId = friendId;
 		this.userId = userId;
 		this.isFriend = isFriend;
+		this.userPhoto = userPhoto;
+	}
+
+	/**
+	 * 
+	 */
+	public FriendDto() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
-	/***
-	 * Dafult Constructor
-	 */
-	public FriendDto(){
-		
-	}
+	
+	
 	
 }

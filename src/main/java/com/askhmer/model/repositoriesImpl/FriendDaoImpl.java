@@ -58,7 +58,7 @@ public class FriendDaoImpl implements FriendDao {
 		try {
 
 			cnn = dataSource.getConnection();
-			String sql = "SELECT user_id, user_name, gender, user_no FROM tbl_user WHERE user_id=?";
+			String sql = "SELECT user_id, user_name, gender, user_no, user_photo FROM tbl_user WHERE user_id=?";
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setInt(1, user_id);
 			ResultSet rs = ps.executeQuery();
@@ -69,6 +69,7 @@ public class FriendDaoImpl implements FriendDao {
 				dto.setUserName(rs.getString("user_name"));
 				dto.setGender(rs.getString("gender"));
 				dto.setUserNo(rs.getString("user_no"));
+				dto.setUserPhoto(rs.getString("user_photo"));
 				return dto;
 			}
 
@@ -107,7 +108,7 @@ public class FriendDaoImpl implements FriendDao {
 		ResultSet rs = null;
 		System.err.println("error");
 		try {
-			String sql = "SELECT user_id, user_name, gender, user_no FROM tbl_user WHERE user_id IN(SELECT user_id FROM tbl_friend WHERE friend_id = ? AND is_friend = 1 UNION (SELECT friend_id FROM tbl_friend WHERE user_id = ? AND is_friend = 1))";
+			String sql = "SELECT user_id, user_name, gender, user_no,user_photo FROM tbl_user WHERE user_id IN(SELECT user_id FROM tbl_friend WHERE friend_id = ? AND is_friend = 1 UNION (SELECT friend_id FROM tbl_friend WHERE user_id = ? AND is_friend = 1))";
 			cnn = dataSource.getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setInt(1, user_id);
@@ -120,6 +121,7 @@ public class FriendDaoImpl implements FriendDao {
 				dto.setUserName(rs.getString("user_name"));
 				dto.setGender(rs.getString("gender"));
 				dto.setUserNo(rs.getString("user_no"));
+				dto.setUserPhoto(rs.getString("user_photo"));
 				friend.add(dto);
 			}
 			return friend;
