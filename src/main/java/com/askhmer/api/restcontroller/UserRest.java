@@ -46,6 +46,26 @@ public class UserRest {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
+	
+	@RequestMapping(value="/adduserwithfb", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String,Object>> addUserWithFb(@RequestBody UserDto userDto){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		int result = user.registerWithFb(userDto);
+		try {
+			if(result > 0){
+				map.put("MESSAGE_USERID",result);
+				map.put("MESSAGE","REGISTER USER HAS BEEN REQUESTED.");
+				map.put("STATUS", HttpStatus.OK.value());
+			}else{
+				map.put("MESSAGE","REGISTER USER HAS BEEN FAILS.");
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/checkUser", method= RequestMethod.POST, headers="Accept=application/json")
 	public ResponseEntity<Map<String,Object>> checkUser(@RequestParam String valuesSearch){
 		Map<String, Object> map  = new HashMap<String, Object>();

@@ -23,4 +23,11 @@ public interface UserServices {
 	 */
 	public int checkHasUser(String facebookIdOrPhone);
 	
+	/**
+	 * 
+	 * @param userDto
+	 * @return
+	 */
+	public int registerWithFb(UserDto userDto);
+	
 }

@@ -28,4 +28,13 @@ public class UserServicesImpl implements UserServices{
 		return userDao.checkHasUser(facebookIdOrPhone);
 	}
 
+	@Override
+	public int registerWithFb(UserDto userDto) {
+		int userId = userDao.checkHasUser(userDto.getFacebookId());
+		if (userId == 0) {
+			return userDao.register(userDto);
+		}
+		return userId;
+	}
+
 }
