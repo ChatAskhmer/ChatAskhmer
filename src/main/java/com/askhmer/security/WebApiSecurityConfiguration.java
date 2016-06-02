@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
 @EnableWebSecurity
@@ -18,34 +17,21 @@ public class WebApiSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private Environment environment;
 	
+	
 	@Autowired
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth)
-			throws Exception {
-		super.configure(auth);
-		
-		auth.inMemoryAuthentication()
-			.withUser(environment.getProperty("chatAskhmer.admin"))
-			.password(environment.getProperty("chatAskhmer.code"))
-			.roles("API");
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth
+			.inMemoryAuthentication()
+				.withUser("admin").password("123").roles("API");
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		super.configure(http);
-		http
-			.csrf()
-			.disable();
-		http
-			.authorizeRequests()
-			.antMatchers("/api/**")
-			.hasRole("API")
-			.anyRequest()
-			.authenticated()
-		.and()
-			.httpBasic()
-		.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
-	}
-
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .antMatcher("/api/**")
+                .authorizeRequests()
+                    .anyRequest().hasAnyRole("API")
+                    .and()
+                .httpBasic();
+    }
 }
