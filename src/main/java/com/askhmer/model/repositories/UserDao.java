@@ -1,5 +1,7 @@
 package com.askhmer.model.repositories;
 
+import java.util.List;
+
 import com.askhmer.model.dto.UserDto;
 
 /***
@@ -22,5 +24,12 @@ public interface UserDao {
 	 * @return int; if return 0 equal not exist and if exist return user id
 	 */
 	public int checkHasUser(String facebookIdOrPhone);
+	
+	/**
+	 * 
+	 * @param searchUserNoOrName
+	 * @return
+	 */
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName);
 	
 }

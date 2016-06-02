@@ -1,5 +1,7 @@
 package com.askhmer.services;
 
+import java.util.List;
+
 import com.askhmer.model.dto.UserDto;
 
 /**
@@ -29,5 +31,12 @@ public interface UserServices {
 	 * @return
 	 */
 	public int registerWithFb(UserDto userDto);
+	
+	/**
+	 * 
+	 * @param searchUserNoOrName
+	 * @return
+	 */
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName);
 	
 }

@@ -188,10 +188,11 @@ public class UserDto {
 	 * @param userAccessToken
 	 * @param userRigisDate
 	 */
-	public UserDto(String userName, String gender, String userNo, String userPhoto, String userEmail,
+	public UserDto(int userId, String userName, String gender, String userNo, String userPhoto, String userEmail,
 			String userPassword, String userHometown, String userCurrentCity, String userPhoneNum, String facebookId,
 			String userAccessToken, Date userRigisDate) {
 		super();
+		this.userId = userId;
 		this.userName = userName;
 		this.gender = gender;
 		this.userNo = userNo;

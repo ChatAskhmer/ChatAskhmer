@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -71,6 +73,36 @@ public class UserDaoImpl implements UserDao{
 		}
 
 		return 0;
+	}
+
+	@Override
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName) {
+		final String SQLSEARCHUSERID = "select * from tbl_user where user_id = ? or LCASE(user_name) like LCASE(?)";
+		List<UserDto> users = new ArrayList<UserDto>();
+		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLSEARCHUSERID);) {
+			ps.setString(1, searchUserNoOrName);
+			ps.setString(2, "%" + searchUserNoOrName + "%");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				UserDto userDto = new UserDto();
+				userDto.setUserId(rs.getInt("user_id"));
+				userDto.setUserName(rs.getString("user_name"));
+				userDto.setGender(rs.getString("gender"));
+				userDto.setUserNo(rs.getString("user_no"));
+				userDto.setUserPhoto(rs.getString("user_photo"));
+				userDto.setUserEmail(rs.getString("user_email"));
+				userDto.setUserPassword(rs.getString("user_password"));
+				userDto.setUserHometown(rs.getString("user_hometown"));
+				userDto.setUserCurrentCity(rs.getString("user_current_city"));
+				userDto.setUserPhoneNum(rs.getString("user_phone_num"));
+				userDto.setFacebookId(rs.getString("facebook_id"));
+				userDto.setUserAccessToken(rs.getString("user_access_token"));
+				users.add(userDto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
 }
