@@ -28,8 +28,9 @@ public interface UserDao {
 	/**
 	 * 
 	 * @param searchUserNoOrName
+	 * @param IdUserUseApp : id user using app 
 	 * @return
 	 */
-	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName);
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, String IdUserUseApp);
 	
 }

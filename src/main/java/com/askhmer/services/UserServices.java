@@ -37,6 +37,6 @@ public interface UserServices {
 	 * @param searchUserNoOrName
 	 * @return
 	 */
-	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName);
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, String IdUserUseApp);
 	
 }

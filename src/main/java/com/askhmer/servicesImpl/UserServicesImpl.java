@@ -40,8 +40,8 @@ public class UserServicesImpl implements UserServices{
 	}
 
 	@Override
-	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName) {
-		List<UserDto> users = userDao.searchUserByUserNoOrName(searchUserNoOrName);
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, String IdUserUseApp) {
+		List<UserDto> users = userDao.searchUserByUserNoOrName(searchUserNoOrName, IdUserUseApp);
 		return users;
 	}
 

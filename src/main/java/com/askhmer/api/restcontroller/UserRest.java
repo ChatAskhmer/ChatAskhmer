@@ -88,11 +88,11 @@ public class UserRest {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/searchby_userno_name/{user_id}", method= RequestMethod.POST, headers="Accept=application/json")
-	public ResponseEntity<Map<String,Object>> searchUserByUserNoOrName(@PathVariable("user_id") String searchUserNoOrName){
+	@RequestMapping(value="/searchby_userno_name/{userno_name}/{id_user_use_app}", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String,Object>> searchUserByUserNoOrName(@PathVariable("userno_name") String searchUserNoOrName, @PathVariable("id_user_use_app") String IdUserUseApp){
 		Map<String, Object> map  = new HashMap<String, Object>();
 		try {
-			List<UserDto> userDto = user.searchUserByUserNoOrName(searchUserNoOrName); 
+			List<UserDto> userDto = user.searchUserByUserNoOrName(searchUserNoOrName, IdUserUseApp); 
 			if(userDto != null){
 				map.put("USER_DETAIL",userDto);
 				map.put("MESSAGE","SEARCH HAS BEEN REQUESTED.");

@@ -76,12 +76,13 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName) {
-		final String SQLSEARCHUSERID = "select * from tbl_user where user_id = ? or LCASE(user_name) like LCASE(?)";
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, String IdUserUseApp) {
+		final String SQLSEARCHUSERID = "select * from tbl_user where user_id = ? or LCASE(user_name) like LCASE(?) and user_id != ?";
 		List<UserDto> users = new ArrayList<UserDto>();
 		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLSEARCHUSERID);) {
 			ps.setString(1, searchUserNoOrName);
 			ps.setString(2, "%" + searchUserNoOrName + "%");
+			ps.setString(3, IdUserUseApp);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				UserDto userDto = new UserDto();
