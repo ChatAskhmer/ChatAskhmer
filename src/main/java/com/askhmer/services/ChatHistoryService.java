@@ -14,12 +14,13 @@ public interface ChatHistoryService {
 	 */
 	 public List<ChatHistoryDto> listChatRoom(int user_id);
 	 
-	 /***
+	 /**
 	  * 
 	  * @param user_id
+	  * @param chatToUserId
 	  * @return
 	  */
-	 public int checkChatRoom(int user_id,int id);
+	 public int checkChatRoom(int user_id,int chatToUserId);
 	 
 	 
 	 /***

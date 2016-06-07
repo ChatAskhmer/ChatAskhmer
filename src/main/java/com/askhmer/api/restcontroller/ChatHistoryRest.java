@@ -48,10 +48,10 @@ public class ChatHistoryRest {
 	
 	
 
-	@RequestMapping(value="/checkChatRoom/{user_id}/{user_id}", method= RequestMethod.POST, headers="Accept=application/json")
-	public ResponseEntity<Map<String,Object>> checkChatRoom(@PathVariable("user_id") int user_id,@PathVariable("user_id") int id){
+	@RequestMapping(value="/checkChatRoom/{user_id}/{chat_to_user_id}", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String,Object>> checkChatRoom(@PathVariable("user_id") int user_id,@PathVariable("chat_to_user_id") int chat_to_user_id){
 		Map<String, Object> map  = new HashMap<String, Object>();
-		int result = chatHistoryServiceImpl.checkChatRoom(user_id, id);
+		int result = chatHistoryServiceImpl.checkChatRoom(user_id, chat_to_user_id);
 		try {
 			if(result > 0){
 				map.put("MESSAGE_ROOM_ID",result);

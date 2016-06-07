@@ -29,8 +29,8 @@ public class ChatHistoryServiceImpl implements ChatHistoryService{
 
 	
 	@Override
-	public int checkChatRoom(int user_id,int id) {
-		return chatHistoryDao.checkChatRoom(user_id, id);
+	public int checkChatRoom(int user_id,int chatToUserId) {
+		return chatHistoryDao.checkChatRoom(user_id, chatToUserId);
 	}
 
 
