@@ -25,6 +25,24 @@ public interface UserServices {
 	 */
 	public int checkHasUser(String facebookIdOrPhone);
 	
+	
+
+	/***
+	 * 
+	 * @param userDto
+	 * @return
+	 */
+	public boolean updateUser(UserDto userDto);
+	
+	
+	/***
+	 * 
+	 * @param user_id
+	 * @return
+	 */
+	public UserDto viewUserById(int user_id);
+	
+	
 	/**
 	 * 
 	 * @param userDto
@@ -37,6 +55,6 @@ public interface UserServices {
 	 * @param searchUserNoOrName
 	 * @return
 	 */
-	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, String IdUserUseApp);
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName);
 	
 }

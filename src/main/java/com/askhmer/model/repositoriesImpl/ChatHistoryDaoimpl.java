@@ -34,12 +34,14 @@ public class ChatHistoryDaoimpl implements ChatHistoryDao {
 		ResultSet rs = null;
 		System.err.println("error");
 		try {
-			String sql ="select u.user_id,u.user_name,u.user_photo,r.room_id,r.room_name "
-					+"from tbl_user u INNER JOIN tbl_chat_member m "
-					+"on u.user_id = m.user_id "
-					+"INNER JOIN tbl_chat_room r on m.room_id = r.room_id "
-					+"where r.room_id not in (select room_id from tbl_del_chat_msg where user_id = ?) and "
-                    +"m.room_id in (select room_id from tbl_chat_member where user_id = ?) and (u.user_id != ?)";
+			String sql = "select u.user_id, u.user_name,u.user_photo,r.room_id,r.room_name "
+						+"from tbl_user u INNER JOIN tbl_chat_member m "
+					    +"on u.user_id = m.user_id "
+					    +"INNER JOIN tbl_chat_room r on m.room_id = r.room_id "
+					    +"where m.room_id in (select room_id from tbl_chat_member where user_id = ?) and (u.user_id != ?) "
+					    +"AND m.room_id not in (SELECT room_id from tbl_del_chat_msg WHERE user_id = ?)"
+					    +"GROUP BY r.room_id ORDER BY m.room_id desc";
+			
 			cnn = dataSource.getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setInt(1, user_id);
@@ -75,15 +77,15 @@ public class ChatHistoryDaoimpl implements ChatHistoryDao {
 	
 	@Override
 	public int checkChatRoom(int user_id,int chatToUserId) {
-		final String SQLCHECKROOM = "SELECT cm.room_id as room_id from tbl_chat_room cr "
-				+ "INNER JOIN tbl_chat_member cm "
-				+ "ON cr.room_id = cm.room_id "
-				+ "where cm.user_id "
-				+ "in(Select room_id from tbl_chat_member where user_id = ?) "
-				+ "and cm.user_id = ? "
-				+ "and cr.description = 'personal chat'";
+//		final String SQLCHECKROOM = "SELECT cm.room_id as room_id from tbl_chat_room cr "
+//				+ "INNER JOIN tbl_chat_member cm "
+//				+ "ON cr.room_id = cm.room_id "
+//				+ "where cm.user_id "
+//				+ "in(Select room_id from tbl_chat_member where user_id = ?) "
+//				+ "and cm.user_id = ? "
+//				+ "and cr.description = 'personal chat'";
 		
-		final String SQLCHECKUSER = "select room_id from tbl_chat_member where room_id in (select room_id from tbl_chat_member where user_id = ?) and user_id = ?"; 
+		final String SQLCHECKROOM = "select room_id from tbl_chat_member where room_id in (select room_id from tbl_chat_member where user_id = ?) and user_id = ?"; 
 		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLCHECKROOM);) {
 			ps.setInt(1, user_id);
 			ps.setInt(2, chatToUserId);

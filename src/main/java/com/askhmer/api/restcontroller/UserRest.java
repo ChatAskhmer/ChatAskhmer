@@ -88,11 +88,11 @@ public class UserRest {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/searchby_userno_name/{userno_name}/{id_user_use_app}", method= RequestMethod.POST, headers="Accept=application/json")
-	public ResponseEntity<Map<String,Object>> searchUserByUserNoOrName(@PathVariable("userno_name") String searchUserNoOrName, @PathVariable("id_user_use_app") String IdUserUseApp){
+	@RequestMapping(value="/searchby_userno_name/{user_id}", method= RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String,Object>> searchUserByUserNoOrName(@PathVariable("user_id") String searchUserNoOrName){
 		Map<String, Object> map  = new HashMap<String, Object>();
 		try {
-			List<UserDto> userDto = user.searchUserByUserNoOrName(searchUserNoOrName, IdUserUseApp); 
+			List<UserDto> userDto = user.searchUserByUserNoOrName(searchUserNoOrName); 
 			if(userDto != null){
 				map.put("USER_DETAIL",userDto);
 				map.put("MESSAGE","SEARCH HAS BEEN REQUESTED.");
@@ -105,6 +105,40 @@ public class UserRest {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
+	
+	
+	
+
+	@RequestMapping(value="/updateuser", method = RequestMethod.PUT)
+	public ResponseEntity<Map<String, Object>> updateUser(@RequestBody UserDto userDto){
+		Map<String, Object> map = new HashMap<String,Object>();
+		boolean result = user.updateUser(userDto);
+		if ( result == true){
+			map.put("STATUS", true);
+			map.put("MESSAGE", "USER UPDATE SUCCESS!");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}
+		map.put("STATUS", false);
+		map.put("MESSAGE", "USER UPDATE FAIL!");
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="viewUserById/{user_id}", method = RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity<Map<String, Object>> viewUserById(@PathVariable("user_id") int user_id){
+		UserDto userDTO = user.viewUserById(user_id);
+		Map<String, Object> map = new HashMap<String,Object>();
+		if ( userDTO != null) {
+			map.put("STATUS", true);
+			map.put("MESSAGE", "FRIEND ID "+user_id+" FOUND!");
+			map.put("DATA", userDTO);
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}
+		map.put("STATUS", false);
+		map.put("MESSAGE", "FRIEND ID "+user_id+" NOT FOUND!");
+		map.put("DATA", "");
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 	
 }

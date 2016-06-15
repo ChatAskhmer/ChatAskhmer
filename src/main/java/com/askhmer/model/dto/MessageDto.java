@@ -1,7 +1,6 @@
 package com.askhmer.model.dto;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 public class MessageDto {
 	private int msgId;
@@ -10,7 +9,7 @@ public class MessageDto {
 	private String message;
 	private String stickerUrl;
 	private Date msgDate;
-	private Time msgTime;
+	private Date msgTime;
 	
 	private String userName;
 	private String userProfile;
@@ -51,10 +50,10 @@ public class MessageDto {
 	public void setMsgDate(Date msgDate) {
 		this.msgDate = msgDate;
 	}
-	public Time getMsgTime() {
+	public Date getMsgTime() {
 		return msgTime;
 	}
-	public void setMsgTime(Time msgTime) {
+	public void setMsgTime(Date msgTime) {
 		this.msgTime = msgTime;
 	}
 	public String getUserName() {

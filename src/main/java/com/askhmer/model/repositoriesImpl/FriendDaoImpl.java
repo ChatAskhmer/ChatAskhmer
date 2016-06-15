@@ -58,7 +58,7 @@ public class FriendDaoImpl implements FriendDao {
 		try {
 
 			cnn = dataSource.getConnection();
-			String sql = "SELECT user_id, user_name, gender, user_no, user_photo FROM tbl_user WHERE user_id=?";
+			String sql = "SELECT user_id, user_name, gender, user_no, user_photo,user_email,user_hometown,user_phone_num FROM tbl_user WHERE user_id=?";
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setInt(1, user_id);
 			ResultSet rs = ps.executeQuery();
@@ -70,6 +70,9 @@ public class FriendDaoImpl implements FriendDao {
 				dto.setGender(rs.getString("gender"));
 				dto.setUserNo(rs.getString("user_no"));
 				dto.setUserPhoto(rs.getString("user_photo"));
+				dto.setUserEmail(rs.getString("user_email"));
+				dto.setUserHometown(rs.getString("user_hometown"));
+				dto.setUserPhoneNum(rs.getString("user_phone_num"));
 				return dto;
 			}
 

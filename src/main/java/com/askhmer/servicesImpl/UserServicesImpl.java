@@ -29,6 +29,19 @@ public class UserServicesImpl implements UserServices{
 	public int checkHasUser(String facebookIdOrPhone) {
 		return userDao.checkHasUser(facebookIdOrPhone);
 	}
+	
+	
+	@Override
+	public boolean updateUser(UserDto userDto) {
+		// TODO Auto-generated method stub
+		return userDao.updateUser(userDto);
+	}
+
+	@Override
+	public UserDto viewUserById(int user_id) {
+		return userDao.viewUserById(user_id);
+	}
+	
 
 	@Override
 	public int registerWithFb(UserDto userDto) {
@@ -40,8 +53,8 @@ public class UserServicesImpl implements UserServices{
 	}
 
 	@Override
-	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, String IdUserUseApp) {
-		List<UserDto> users = userDao.searchUserByUserNoOrName(searchUserNoOrName, IdUserUseApp);
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName) {
+		List<UserDto> users = userDao.searchUserByUserNoOrName(searchUserNoOrName);
 		return users;
 	}
 
