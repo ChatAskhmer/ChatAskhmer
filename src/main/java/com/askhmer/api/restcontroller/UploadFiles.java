@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.askhmer.utilities.UploadFile;
 
 @Controller
-@RequestMapping("/api/uploadfile")
+@RequestMapping("api/uploadfile")
 public class UploadFiles {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/upload")
