@@ -1,9 +1,11 @@
 package com.askhmer.api.restcontroller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.askhmer.model.dto.FriendDto;
@@ -121,6 +124,47 @@ public class FriendRest {
 		map.put("MESSAGE", "FRIEND ID "+user_id+" NOT FOUND!");
 		map.put("DATA", "");
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
+	
+	
+	
+	/*
+	 * search Friend
+	 * we want to search the course in friend
+	 */
+	@RequestMapping(value="/searchfriend/{searchkey}/{user_id}", method= RequestMethod.GET, headers= "Accept=application/json")
+	public ResponseEntity<Map<String, Object>> searchFriend(@PathVariable("searchkey") String key,
+			          @PathVariable("user_id") int user_id
+			 
+//					,@RequestParam(value ="page", required = false, defaultValue = "1") int page,
+//					@RequestParam(value ="item" , required = false , defaultValue = "10") int item
+			){
+		Map<String, Object> map= new HashMap<String, Object>();
+		try{
+//			Pagination pagin = new Pagination();
+//			pagin.setItem(item);
+//			pagin.setPage(page);
+//			pagin.setTotalCount(playlistservice.countSearchPlayList(key));
+//			pagin.setTotalPages(pagin.totalPages());
+			
+			
+//			ArrayList<UserDto> dto= playlistservice.searchPlayList(key, pagin);
+			ArrayList<UserDto> dto= friend.searchFriend(key,user_id);
+			if(!dto.isEmpty()){
+				map.put("STATUS", true);
+				map.put("MESSAGE", "RECORD FOUND");
+				map.put("RES_DATA", dto);
+				//map.put("PAGINATION", pagin);
+			}else{
+				map.put("STATUS", false);
+				map.put("MESSAGE", "RECORD NOT FOUND!");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("MESSAGE", "ERROR OCCURRING!");
+		}
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		
 	}
 	
 	

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -162,4 +163,106 @@ public class FriendDaoImpl implements FriendDao {
 
 		return false;
 	}
+	
+	
+	
+	
+	
+//	@Override
+//	public ArrayList<Playlist> searchPlayList(String kesearch, Pagination pagin) {
+//		try {
+//			con = dataSource.getConnection();
+//			ArrayList<Playlist> playlists =new ArrayList<Playlist>();
+//			int begin =(pagin.getItem()*pagin.getPage())-pagin.getItem();
+//			
+//			ResultSet rs = null;
+//			String sql = "SELECT * FROM tblplaylist P "
+//							+"WHERE LOWER(P.playlistname) LIKE LOWER(?) "
+//							+"order by playlistid desc offset ? limit ?"; 
+//								
+//			PreparedStatement ps = con.prepareStatement(sql);
+//			ps.setString(1, "%"+kesearch+"%");
+//			ps.setInt(2, begin);
+//			ps.setInt(3, pagin.getItem());
+//			rs = ps.executeQuery();
+//			while(rs.next()){
+//				
+//				Playlist playlist = new Playlist();
+//				playlist.setPlaylistId(Encryption.encode(rs.getString("playlistid")));
+//				playlist.setPlaylistName(rs.getString("playlistname"));
+//				playlist.setDescription(rs.getString("description"));
+//				playlist.setUserId(Encryption.encode(rs.getString("userid")));
+//				playlist.setThumbnailUrl(rs.getString("thumbnailurl"));
+//				playlist.setPublicView(rs.getBoolean("publicview"));
+//				playlist.setMaincategory(Encryption.encode(rs.getString("maincategory")));
+//				playlist.setBgImage(rs.getString("bgimage"));
+//				playlist.setColor(rs.getString("color"));
+//				playlist.setStatus(rs.getBoolean("status"));
+//				playlist.setCountVideos(this.countVideoInPlayList(rs.getInt("playlistid")));
+//				playlists.add(playlist);
+//			}
+//			return playlists;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally{
+//			try {
+//				con.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return null;
+//	}
+//	
+	
+
+@Override
+public ArrayList<UserDto> searchFriend(String kesearch, int user_id) {
+	try {
+		cnn = dataSource.getConnection();
+		ArrayList<UserDto> friendlists =new ArrayList<UserDto>();
+	//	int begin =(pagin.getItem()*pagin.getPage())-pagin.getItem();
+		
+		ResultSet rs = null;
+//		String sql = "SELECT * FROM tblplaylist P "
+//						+"WHERE LOWER(P.playlistname) LIKE LOWER(?) "
+//						+"order by playlistid desc offset ? limit ?"; 
+		
+		
+		String sql = "SELECT user_id, user_name, gender, user_no,user_photo FROM "
+				    +"tbl_user WHERE LOWER(user_name) LIKE LOWER(?) AND user_id "
+				    +"IN(SELECT user_id FROM tbl_friend WHERE friend_id = ? AND is_friend = 1 "
+				    +"UNION (SELECT friend_id FROM tbl_friend WHERE user_id = ? AND is_friend = 1))";
+		
+							
+		PreparedStatement ps = cnn.prepareStatement(sql);
+		ps.setString(1, "%"+kesearch+"%");
+		ps.setInt(2, user_id);
+		ps.setInt(3, user_id);
+//		ps.setInt(2, begin);
+//		ps.setInt(3, pagin.getItem());
+		rs = ps.executeQuery();
+		while(rs.next()){
+			
+			UserDto dto = new UserDto();
+			dto.setUserId(rs.getInt("user_id"));
+			dto.setUserName(rs.getString("user_name"));
+			dto.setGender(rs.getString("gender"));
+			dto.setUserNo(rs.getString("user_no"));
+			dto.setUserPhoto(rs.getString("user_photo"));
+			friendlists.add(dto);
+			
+		}
+		return friendlists;
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally{
+		try {
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	return null;
+}
 }

@@ -3,7 +3,10 @@ package com.askhmer.services;
 import com.askhmer.model.dto.FriendDto;
 import com.askhmer.model.dto.UserDto;
 
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 /***
  * 
@@ -46,5 +49,12 @@ public interface FriendService {
 	 * @return
 	 */
 	public boolean unFriend(FriendDto friendDto);
+	
+	/**
+	 * search fri
+	 */
 
+	//public ArrayList<Playlist> searchPlayList(String kesearch, Pagination pagin);
+	
+	public ArrayList<UserDto> searchFriend(String kesearch, int user_id);
 }

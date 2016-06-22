@@ -1,5 +1,6 @@
 package com.askhmer.servicesImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,13 @@ public class FriendServiceImpl implements FriendService {
 	public boolean unFriend(FriendDto friendDto) {
 		return friendDao.unFriend(friendDto);
 	}
+
+	@Override
+	public ArrayList<UserDto> searchFriend(String kesearch,int user_id) {
+		// TODO Auto-generated method stub
+		return friendDao.searchFriend(kesearch,user_id);
+	}
+
+	
 
 }
