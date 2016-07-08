@@ -72,18 +72,25 @@ public class MessageDaoImpl implements MessageDao{
 		ResultSet rs = null;
 		MessageDto dto = null;
 		
-		String sql = "SELECT m.msg_id, m.message, m.msg_date, m.msg_time, u.user_id, u.user_name, u.user_photo "
-					+"FROM tbl_chat_msg m "
-					+"INNER JOIN tbl_user u ON u.user_id = m.user_id "
-					+"WHERE m.room_id = ? "
-					+"AND m.msg_id NOT IN(SELECT msg_id "
-					+"FROM tbl_del_chat_msg "
-					+"WHERE user_id = ?)";
+//		String sql = "SELECT m.msg_id, m.message, m.msg_date, m.msg_time, u.user_id, u.user_name, u.user_photo, m.room_id "
+//					+"FROM tbl_chat_msg m "
+//					+"INNER JOIN tbl_user u ON u.user_id = m.user_id "
+//					+"WHERE m.room_id = ? "
+//					+"AND m.msg_id NOT IN(SELECT msg_id "
+//					+"FROM tbl_del_chat_msg "
+//					+"WHERE user_id = ?)";
+		
+		String sql = "Select m.msg_id, m.message, m.msg_date, m.msg_time, u.user_id, u.user_name, u.user_photo, m.room_id "
+					+"From tbl_chat_msg m INNER JOIN tbl_user u ON u.user_id = m.user_id Where room_id=? and msg_date > (Select IFNULL(Max(del_msg_date),'2012-01-01') " 
+					+"from tbl_del_chat_msg Where user_id=? and room_id=?) and msg_id not in (select msg_id from tbl_del_chat_msg where user_id=?)";
+		
 		try {
 			cnn = dataSource.getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setInt(1, room_id);
 			ps.setInt(2, user_id);
+			ps.setInt(3, room_id);
+			ps.setInt(4, user_id);
 			
 			rs = ps.executeQuery();
 			
@@ -96,6 +103,7 @@ public class MessageDaoImpl implements MessageDao{
 				dto.setUserId(rs.getInt("user_id"));
 				dto.setUserName(rs.getString("user_name"));
 				dto.setUserProfile(rs.getString("user_photo"));
+				dto.setRoomId(rs.getInt("room_id"));
 				
 				msg.add(dto);
 			}
