@@ -147,21 +147,19 @@ public class UserDaoImpl implements UserDao{
 	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, int userID) {
 //		final String SQLSEARCHUSERID = "select * from tbl_user where user_id = ? or LCASE(user_name) like LCASE(?)";
 		
-		final String SQLSEARCHUSERID = "SELECT user_id, user_name, gender,user_no, user_photo "
+		final String SQLSEARCHUSERID = "SELECT user_id, user_name, gender, user_no, user_photo "
 										+"FROM tbl_user "
-										+"WHERE user_no =  '?' "
+										+"WHERE user_no =  ? "
 										+"OR LCASE( user_name ) LIKE LCASE( ? ) " 
-										+"AND user_id NOT " 
-										+"IN ( ? )" 
-										+"AND user_id NOT " 
-										+"IN ( "
-										+"SELECT user_id "
-										+"FROM tbl_friend "
-										+"WHERE friend_id =? "
-										+"UNION ( "										
-										      +"SELECT friend_id "
-										      +"FROM tbl_friend "
-										      +"WHERE user_id =?))";
+										+"AND user_id NOT IN ( ? )" 
+										+"AND user_id NOT IN ( "
+											+"SELECT user_id "
+											+"FROM tbl_friend "
+											+"WHERE friend_id =? "
+											+"UNION ( "										
+											      +"SELECT friend_id "
+											      +"FROM tbl_friend "
+											      +"WHERE user_id =?))";
 		List<UserDto> users = new ArrayList<UserDto>();
 		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLSEARCHUSERID);) {
 			ps.setString(1, searchUserNoOrName);

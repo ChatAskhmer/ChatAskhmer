@@ -88,7 +88,7 @@ public class UserRest {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/searchby_userno_name/{user_id}", method= RequestMethod.POST, headers="Accept=application/json")
+	@RequestMapping(value="/searchby_userno_name/{key_search}/{user_id}", method= RequestMethod.POST, headers="Accept=application/json")
 	public ResponseEntity<Map<String,Object>> searchUserByUserNoOrName(@PathVariable("key_search") String searchUserNoOrName, @PathVariable("user_id") int userID){
 		Map<String, Object> map  = new HashMap<String, Object>();
 		try {
@@ -106,8 +106,6 @@ public class UserRest {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-	
-	
 	
 	
 
