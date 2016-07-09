@@ -89,10 +89,10 @@ public class UserRest {
 	}
 	
 	@RequestMapping(value="/searchby_userno_name/{user_id}", method= RequestMethod.POST, headers="Accept=application/json")
-	public ResponseEntity<Map<String,Object>> searchUserByUserNoOrName(@PathVariable("user_id") String searchUserNoOrName){
+	public ResponseEntity<Map<String,Object>> searchUserByUserNoOrName(@PathVariable("key_search") String searchUserNoOrName, @PathVariable("user_id") int userID){
 		Map<String, Object> map  = new HashMap<String, Object>();
 		try {
-			List<UserDto> userDto = user.searchUserByUserNoOrName(searchUserNoOrName); 
+			List<UserDto> userDto = user.searchUserByUserNoOrName(searchUserNoOrName, userID); 
 			if(userDto != null){
 				map.put("USER_DETAIL",userDto);
 				map.put("MESSAGE","SEARCH HAS BEEN REQUESTED.");

@@ -144,12 +144,31 @@ public class UserDaoImpl implements UserDao{
 	
 
 	@Override
-	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName) {
-		final String SQLSEARCHUSERID = "select * from tbl_user where user_id = ? or LCASE(user_name) like LCASE(?)";
+	public List<UserDto> searchUserByUserNoOrName(String searchUserNoOrName, int userID) {
+//		final String SQLSEARCHUSERID = "select * from tbl_user where user_id = ? or LCASE(user_name) like LCASE(?)";
+		
+		final String SQLSEARCHUSERID = "SELECT user_id, user_name, gender,user_no, user_photo "
+										+"FROM tbl_user "
+										+"WHERE user_no =  '?' "
+										+"OR LCASE( user_name ) LIKE LCASE( ? ) " 
+										+"AND user_id NOT " 
+										+"IN ( ? )" 
+										+"AND user_id NOT " 
+										+"IN ( "
+										+"SELECT user_id "
+										+"FROM tbl_friend "
+										+"WHERE friend_id =? "
+										+"UNION ( "										
+										      +"SELECT friend_id "
+										      +"FROM tbl_friend "
+										      +"WHERE user_id =?))";
 		List<UserDto> users = new ArrayList<UserDto>();
 		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(SQLSEARCHUSERID);) {
 			ps.setString(1, searchUserNoOrName);
 			ps.setString(2, "%" + searchUserNoOrName + "%");
+			ps.setInt(3, userID);
+			ps.setInt(4, userID);
+			ps.setInt(5, userID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				UserDto userDto = new UserDto();
@@ -158,13 +177,6 @@ public class UserDaoImpl implements UserDao{
 				userDto.setGender(rs.getString("gender"));
 				userDto.setUserNo(rs.getString("user_no"));
 				userDto.setUserPhoto(rs.getString("user_photo"));
-				userDto.setUserEmail(rs.getString("user_email"));
-				userDto.setUserPassword(rs.getString("user_password"));
-				userDto.setUserHometown(rs.getString("user_hometown"));
-				userDto.setUserCurrentCity(rs.getString("user_current_city"));
-				userDto.setUserPhoneNum(rs.getString("user_phone_num"));
-				userDto.setFacebookId(rs.getString("facebook_id"));
-				userDto.setUserAccessToken(rs.getString("user_access_token"));
 				users.add(userDto);
 			}
 		} catch (SQLException e) {
